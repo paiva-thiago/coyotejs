@@ -1,1 +1,29 @@
-function gro(){for(var t=[function(){return new XMLHttpRequest},function(){return new ActiveXObject("Microsoft.XMLHTTP")},function(){return new ActiveXObject("Msxml2.XMLHTTP.6.0")}],n=0,e=t.length;n<e;n++)try{return t[n]()}catch(t){}}function aja(m,t,n,e,r){var s=gro();s.open(m,t,r),s.onreadystatechange=function(){4===this.readyState&&(this.status>=200&&this.status<400?n(this.responseText):e())},s.send(),s=null}
+function getRequestObject() {
+    let possibilities = [
+        () => new XMLHttpRequest(),
+        () => new ActiveXObject("Microsoft.XMLHTTP"),
+        () => new ActiveXObject("Msxml2.XMLHTTP.6.0")
+    ];
+
+    for (let i = 0; i < possibilities.length; i++) {
+        try {
+            return possibilities[i]()
+        } catch (e) {}
+    }
+}
+
+function aja(method, url, callbackSucesso, callbackErro, isAsync) {
+    let request = getRequestObject();
+    request.open(method, url, isAsync);
+    request.onreadystatechange = function () {
+        if (this.readyState === 4) {
+            if (this.status >= 200 && this.status < 400) {
+                callbackSucesso(this.responseText);
+            } else {
+                callbackErro();
+            }
+        }
+    }
+    request.send();
+    request = null;
+}
