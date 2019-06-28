@@ -1,8 +1,8 @@
 {
-  "name": "@paiva-thiago/minajax-js",
+  "name": "coyotejs",
   "version": "1.0.0",
   "description": "biblioteca ajax",
-  "main": "index.js",
+  "main": "coyote.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
